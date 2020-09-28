@@ -107,3 +107,4 @@ Vue.registerElement('YoutubePlayer', () => require('nativescript-youtubeplayer')
 
 * [x] IOS
 * [x] toggleFullscreen IOS
+p

@@ -1,3 +1,6 @@
+import * as application from 'tns-core-modules/application';
+import { fromObject } from 'tns-core-modules/data/observable';
+import { layout } from 'tns-core-modules/ui/core/view';
 import {
     BUFFERING_EVENT,
     ENDED_EVENT,
@@ -10,10 +13,6 @@ import {
     VIDEO_LOADED_EVENT,
     YoutubePlayerBase
 } from './youtubeplayer.common';
-import { fromObject } from 'tns-core-modules/data/observable';
-import * as utils from 'tns-core-modules/utils/utils';
-import * as application from 'tns-core-modules/application';
-import { layout } from 'tns-core-modules/ui/core/view';
 
 export class YoutubePlayer extends YoutubePlayerBase {
     specHeight: number;
@@ -87,10 +86,10 @@ export class YoutubePlayer extends YoutubePlayerBase {
     }
 
     public destroy(): void {
-        const center = utils.ios.getter(
-            NSNotificationCenter,
-            NSNotificationCenter.defaultCenter
-        );
+        // const center = utils.ios.getter(
+        //     NSNotificationCenter,
+        //     NSNotificationCenter.defaultCenter
+        // );
         application.ios.removeNotificationObserver(
             this._observer,
             UIWindowDidResignKeyNotification

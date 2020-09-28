@@ -1,3 +1,6 @@
+import * as app from 'tns-core-modules/application';
+import { fromObject } from 'tns-core-modules/data/observable';
+import { Property } from 'tns-core-modules/ui/core/view';
 import {
     ADSTARTED_EVENT,
     apiKeyProperty,
@@ -15,9 +18,6 @@ import {
     VIDEO_LOADED_EVENT,
     YoutubePlayerBase
 } from './youtubeplayer.common';
-import { fromObject } from 'tns-core-modules/data/observable';
-import { Property } from 'tns-core-modules/ui/core/view';
-import * as app from 'tns-core-modules/application';
 
 declare var com;
 const FRAGMENT_TAG = 'TNSYoutubeFragment';
@@ -39,7 +39,7 @@ export class YoutubePlayer extends YoutubePlayerBase {
         const nativeView = new android.widget.LinearLayout(this._context);
         nativeView.setId(this._layoutId);
         // this uses a private API, but it's the best (or rather: easiest) way I could find to support showing the fragment in modals
-        const manager: android.support.v4.app.FragmentManager = (<any>this)._getFragmentManager();
+        const manager: androidx.fragment.app.FragmentManager = (<any>this)._getFragmentManager();
         const fragment = manager.findFragmentByTag(FRAGMENT_TAG);
         if (!fragment) {
             this._fragment = com.google.android.youtube.player.YouTubePlayerSupportFragment.newInstance();
@@ -106,7 +106,7 @@ export class YoutubePlayer extends YoutubePlayerBase {
                     onInitializationFailure(provider, error) {
                         owner.notify({
                             eventName: 'error',
-                            object: fromObject({message: error})
+                            object: fromObject({ message: error })
                         });
                     },
                     onInitializationSuccess(provider, player, wasRestored) {
@@ -237,7 +237,7 @@ export class YoutubePlayer extends YoutubePlayerBase {
         if (this._fragment) {
             const activity = app.android.foregroundActivity;
             if (activity && !activity.isFinishing()) {
-                (<android.support.v4.app.FragmentManager>(<any>this)._getFragmentManager())
+                (<androidx.fragment.app.FragmentManager>(<any>this)._getFragmentManager())
                     .beginTransaction()
                     .remove(this._fragment)
                     .commit();
